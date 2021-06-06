@@ -78,7 +78,7 @@ router.put('/updateById/:id', ctx => {
     }
     tickets.splice(updateIdx, 1);
     tickets.splice(updateIdx, 0, ticket);
-    ctx.response.body = tickets;
+    ctx.response.body = ticket;
 });
 
 module.exports = app;
