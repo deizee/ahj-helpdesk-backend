@@ -56,7 +56,7 @@ router.post('/createTicket', ctx => {
     ctx.response.body = [newTicket];
 });
 
-router.get('/deleteById/:id', ctx => {
+router.delete('/deleteById/:id', ctx => {
     const id = ctx.request.params.id;
     const deleteIdx = tickets.findIndex(ticket => ticket.id === id);
     tickets.splice(deleteIdx, 1);
