@@ -59,8 +59,13 @@ router.post('/createTicket', ctx => {
 router.delete('/deleteById/:id', ctx => {
     const id = ctx.request.params.id;
     const deleteIdx = tickets.findIndex(ticket => ticket.id === id);
-    tickets.splice(deleteIdx, 1);
-    ctx.response.body = tickets;
+    
+    if (deleteIdx) {
+        tickets.splice(deleteIdx, 1);
+        ctx.response.body = {success: true};
+    } else {
+        ctx.response.body = {success: false};
+    }
 });
 
 router.put('/updateById/:id', ctx => {
