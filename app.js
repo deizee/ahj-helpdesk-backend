@@ -7,7 +7,7 @@ const router = new Router();
 const idGenerator = require('node-unique-id-generator');
 
 app.use(cors());
-app.use(koaBody({urlencoded: true}));
+app.use(koaBody({urlencoded: true, multipart:true}));
 app.use(router.routes());
 app.use(router.allowedMethods());
 
@@ -43,8 +43,8 @@ router.get('/ticketById/:id', ctx => {
     ctx.response.body = tickets.find(ticket => ticket.id === id);
 });
 
-router.get('/createTicket', ctx => {
-    const createData = JSON.parse(ctx.request.body);
+router.post('/createTicket', ctx => {
+    const createData = ctx.request.body;
     const newTicket = {
         id: idGenerator.generateGUID(),
         name: createData.name,
@@ -63,10 +63,10 @@ router.get('/deleteById/:id', ctx => {
     ctx.response.body = tickets;
 });
 
-router.get('/updateById/:id', ctx => {
+router.put('/updateById/:id', ctx => {
     const id = ctx.request.params.id;
     const updateIdx = tickets.findIndex(ticket => ticket.id === id);
-    const updateData = JSON.parse(ctx.request.body)
+    const updateData = ctx.request.body;
     const ticket = {
         ...tickets[updateIdx],
         ...updateData
